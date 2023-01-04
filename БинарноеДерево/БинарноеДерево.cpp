@@ -1,8 +1,10 @@
 ﻿#include <iostream>
 
 using namespace std;
+//TODO: Класс с прототипами методов вынести в заголовочный файл(.h), реализацию -- в .cpp
+//TODO: Не вижу рекурсии: элементы ищешь с помощью цикла while, его быть не должно.
 
-
+//TODO: Нормально назвать класс. Нейминг не должен быть русским транслитом.
 class Drevo
 {
 public:
@@ -27,7 +29,7 @@ private:
 		Node* pLeft, * pRight;
 
 		int data;
-		Node(int data , Node* pLeft = nullptr, Node* pRight = nullptr)
+		Node(int data , Node* pLeft = nullptr, Node* pRight = nullptr) //TODO: лучше вообще не передавать в конструктор pLeft и pRight, ведь в большинстве ситуации они тебе там не нужны. Назначай их в самом методе вставки.
 		{
 			this->data = data;
 			this->pLeft = pLeft;
@@ -36,24 +38,26 @@ private:
 
 	};
 
+	//TODO: Переменные именуются в camelCase
 	int Size;
-	Node * Root, * Leafs;
+	Node * Root, * Leafs; //TODO: зачем указатель на листья?
 
 };
 
 Drevo::Drevo()
 {
 	Size = 0;
-	Root = nullptr;
-	Leafs = nullptr;
+	Root = nullptr; //указатели по дефолту nullptr
+	Leafs = nullptr; //TODO: зачем?
 }
 
-
+//TODO: зачем деструктор, если он бездействует? Почисти в нем выделяемую память, есть риск утечки
 Drevo::~Drevo()
 {
 
 }
 
+//TODO: Убрать нижнее подчеркивание у названия метода. Методы именуются в PascalCase.
 void Drevo::Add_Element(int data)
 {
 	int pNull = 1;
@@ -68,7 +72,7 @@ void Drevo::Add_Element(int data)
 
 	
 
-
+//TODO: Повторяющиеся фрагемнты кода вынести в отдельный метод (в твоем случае строки 76 - 116 и 140 - 181 дублируются)
 		while (pNull == 1)
 		{
 
@@ -114,13 +118,14 @@ void Drevo::Add_Element(int data)
 	}
 
 }
-
+//TODO: Убрать нижнее подчеркивание у названия метода. Методы именуются в PascalCase. Х2
 void Drevo::Get_Element(int Key)
 {
-	int Error = 0;
+	//TODO: 1) переменные именуются в camelCase; 2) Объясни, зачем переменные error, pNull, rek? Без них запросто можно обойтись, хардкодишь решение.
+	int Error = 0; //TODO: почему не bool? Тот же вопрос для двух строчек ниже. По-хорошему, эти переменные вообще убери и реализуй без них.
 	int pNull = 1;
-	int rek = 0;
-	if (Root == nullptr)
+	int rek = 0;// Разделяем логические блоким одной пустой строкой
+	if (Root == nullptr)// TODO заменить на if(!root) - это тоже самое, что if(root == nullptr)
 	{
 		Error = 1;
 		Print_Value(rek, Error);
@@ -128,10 +133,10 @@ void Drevo::Get_Element(int Key)
 	else
 	{
 		Node* ptr = this->Root;
+// TODO: Не оставляем пустого пространства. Для разделения максимум одна строка
 
 
-
-
+//TODO: Повторяющиеся фрагемнты кода вынести в отдельный метод (в твоем случае строки 75 - 115 и 140 - 181 дублируются) X2
 		while (pNull == 1)
 		{
 			if (Key < ptr->data)
@@ -178,7 +183,7 @@ void Drevo::Get_Element(int Key)
 	}
 
 }
-
+//TODO: Убрать нижнее подчеркивание у названия метода. Методы именуются в PascalCase. Х3
 void Drevo::Print_Value(int rek,int Error)
 {
 	if (Error == 1)
